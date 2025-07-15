@@ -1,5 +1,5 @@
 from lib.class_electron import electron
-from utils.io_utils import cargar_datos,guardar_datos
+from utils import cargar_datos,guardar_datos
 def calcular_radial(n,l):
     e=electron()
     radial_file = f"data/radial_{n}_{l}.pkl"
