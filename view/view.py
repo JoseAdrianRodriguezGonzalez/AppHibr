@@ -4,6 +4,11 @@ from utils import mostrar_tutorial
 from controller import (mostrar_radial,mostrar_imag_esfericos,mostrar_real_esfericos,
                                 mostrar_cartesian,mostrar_wf_2d,mostrar_wf_3d)
 def obtener_valores_desde_entry(entry_n=None,entry_l=None,entry_m=None):
+    """
+    Recibe los objetos entry_n,entry_l y entry_m. 
+    se guardan los valores recibidos en formato de enteros. 
+    Se devuelven los 3 numeros en formato de tupla
+    """
     valores=[]
     for entry in (entry_n,entry_l,entry_m):
         if entry is not None:
@@ -14,12 +19,20 @@ def obtener_valores_desde_entry(entry_n=None,entry_l=None,entry_m=None):
                 valores.append(int(texto))
     return tuple(valores)
 def init_root():
+    """
+    Se inicializa la ventana principal
+    Se retorna el objeto de ventana
+    """
     root = tk.Tk()
     root.title("Calculadora de Orbitales")
     root.geometry("500x430")
     root.configure(bg="white")
     return root
 def init_entries(root):
+    """
+    Se inicializa los campos para ingresar los numeros n,l,m.
+    Se le pasa el objeto root y se retornan los objetos de entrada de datos
+    """
     entry_n = tk.Entry(root, width=10)
     entry_l = tk.Entry(root, width=10)
     entry_m = tk.Entry(root, width=10)
@@ -28,7 +41,11 @@ def init_entries(root):
     entry_m.grid(row=0, column=2, padx=10, pady=10)
     return entry_n,entry_l,entry_m
 def crear_menu_colores(root):
-    
+    """
+    Crea las etiquetas que indican donde se deben de colocar los n,l,m.
+    Se inicializa el menu para cambiar de color a los graficos. Se pasa el objeto root
+    Y se retornan los colores
+    """
     tk.Label(root, text="n", bg="white").grid(row=1, column=0)
     tk.Label(root, text="l", bg="white").grid(row=1, column=1)
     tk.Label(root, text="m", bg="white").grid(row=1, column=2)
@@ -47,6 +64,10 @@ def crear_menu_colores(root):
     tk.OptionMenu(root, colorscale_var, *colormaps_disponibles).grid(row=7, column=1)
     return bg_color_var,font_color_var,colorscale_var
 def widgets(root,callbacks):
+    """
+    Se crean los botones que permiten graficar.
+    Se pasa el objeto de root y los callbacks, que es un diccionario con strings y funciones
+    """
     p=plot()
     tk.Button(root, text="Calcular Radial", command=callbacks['on_radial'], bg="#4682B4", fg="white").grid(row=2, column=0, pady=10)
     tk.Button(root, text="Función 2D", command=callbacks['on_wf_2D'], bg="#32CD32", fg="white").grid(row=2, column=1, pady=10)
@@ -61,6 +82,11 @@ def widgets(root,callbacks):
     tk.Button(root, text="sp3d2", command=lambda: callbacks['on_hibridaciones'](p.plot_sp3d2), bg="#2F4F4F", fg="white").grid(row=10, column=2, pady=5)
     tk.Button(root, text="Tutorial", command=mostrar_tutorial, bg="#555555", fg="white").grid(row=4, column=1, pady=10)
 def crear_callbacks(entry_n,entry_l,entry_m):
+    """
+    Se definen las funciones de callback que seran retornados en forma de diccionario
+    En la entrada se ingresa los datos de entry_n,entry_l,entry_m.
+    En cada funcion de callback que toma los entry,se validan los elementos 
+    """
     def on_radial():
         values=obtener_valores_desde_entry(entry_n,entry_l,entry_m)
         mostrar_radial(values[0],values[1],values[2])
@@ -87,6 +113,9 @@ def crear_callbacks(entry_n,entry_l,entry_m):
         'on_hibridaciones': on_hibridaciones
     }
 def GUI():
+    """
+    Parte principal de la interfaz, recopila cada una de las funciones previamente definidas
+    """
     root = init_root()
     entry_n, entry_l, entry_m = init_entries(root)
     bg_var, font_var, colormap_var = crear_menu_colores(root)
