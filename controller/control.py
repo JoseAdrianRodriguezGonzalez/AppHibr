@@ -1,10 +1,9 @@
-from model.electron_model import (
+from model import (
     calcular_radial,calcular_spherical_real,
     calcular_spherical_imag,calcular_wf_2d,calcular_wf_3d,
     mostrar_cartesian
     )
-from utils.validator import validar_entradas
-from utils.message import mostrar_error
+from utils import validar_entradas,mostrar_error
 from lib.class_electron import plot
 
 def mostrar_radial(n,l,m):
