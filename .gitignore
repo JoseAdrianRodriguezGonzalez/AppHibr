@@ -1,6 +1,2 @@
 /AppGUI
-/controller/__pycache__/
-/lib/__pycache__/
-/model/__pycache__/
-/utils/__pycache__/
-/view/__pycache__/
+__pycache__/

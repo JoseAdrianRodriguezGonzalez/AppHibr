@@ -166,9 +166,9 @@ class Start(Ventana):
         label_costume.setStyleSheet(parametros2)
         layout.addWidget(label_costume, alignment=Qt.AlignHCenter)
 
-        # # Splitter
-        # splitter = QSplitter(Qt.Horizontal)
-        # layout.addWidget(splitter)
+        # Splitter
+        splitter = QSplitter(Qt.Horizontal)
+        layout.addWidget(splitter)
 
         
         central_widget = QWidget()
