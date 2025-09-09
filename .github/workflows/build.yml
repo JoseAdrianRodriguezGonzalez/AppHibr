@@ -29,7 +29,14 @@ jobs:
 
       - name: Build with PyInstaller
         run: |
-          pyinstaller QuPlots.spec   # 👈 usamos el .spec en vez de main.py
+          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+              pyinstaller QuPlots.spec --name QuPlots.exe
+          elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+              pyinstaller QuPlots.spec --name QuPlots-mac
+          else
+              pyinstaller QuPlots.spec --name QuPlots-linux
+          fi
+
 
       - name: Upload to GitHub Releases
         uses: softprops/action-gh-release@v1
