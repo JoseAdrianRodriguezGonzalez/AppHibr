@@ -20,6 +20,14 @@ a = Analysis(
 )
 
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
+import sys
+import os
+
+name = "QuPlots-linux"
+if sys.platform.startswith("win"):
+    name = "QuPlots-Win10.exe"
+elif sys.platform.startswith("darwin"):
+    name = "QuPlots-mac"
 
 exe = EXE(
     pyz,
@@ -28,12 +36,13 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='MyApp',
+    name=name,
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=True,  # pon False si quieres modo ventana (GUI)
+    console=False,
 )
+
