@@ -33,7 +33,7 @@ jobs:
       # 4️⃣ Compilar con el .spec
       - name: Build with PyInstaller
         run: |
-          pyinstaller MyApp.spec
+          pyinstaller QuPlots.spec
 
       # 5️⃣ Renombrar el ejecutable según OS (para evitar sobrescribir)
       - name: Rename executable for release
