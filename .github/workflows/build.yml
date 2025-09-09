@@ -3,7 +3,7 @@ name: Build and Release Executables
 on:
   push:
     tags:
-      - "v*.*.*"  # Se dispara con tags como v1.0.0
+      - "v*.*.*"
 
 jobs:
   build:
@@ -13,40 +13,24 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
-      # 1️⃣ Clonar el repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Instalar Python
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
 
-      # 3️⃣ Instalar dependencias y PyInstaller
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
 
-      # 4️⃣ Compilar con el .spec
       - name: Build with PyInstaller
         run: |
           pyinstaller QuPlots.spec
 
-      # 5️⃣ Renombrar el ejecutable según OS (para evitar sobrescribir)
-      - name: Rename executable for release
-        run: |
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-            mv dist/MyApp.exe dist/QuPlots-Win10.exe
-          elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
-            mv dist/MyApp dist/QuPlots-mac
-          else
-            mv dist/MyApp dist/QuPlots-linux
-          fi
-
-      # 6️⃣ Subir los ejecutables a GitHub Releases
       - name: Upload executables to release
         uses: softprops/action-gh-release@v1
         with:
