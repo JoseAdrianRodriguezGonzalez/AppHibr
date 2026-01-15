@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QHBoxLayout
 
 
-def boton_menu(text, on_click, font_size=22, width=None, height=None,padding_v=35, padding_h=80):
+def boton_menu(valor, on_click, font_size=22, width=None, height=None,padding_v=35, padding_h=80):
     style = (
         f"background-color: #02023A;"
         f"color: white;"
@@ -10,7 +10,7 @@ def boton_menu(text, on_click, font_size=22, width=None, height=None,padding_v=3
         f"padding: {padding_v}px {padding_h}px;"
         "border-radius: 7px;"
     )
-    btn = QPushButton(text)
+    btn = QPushButton(valor)
     btn.setStyleSheet(style)
     if width and height:
         btn.setFixedSize(width, height)

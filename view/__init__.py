@@ -6,4 +6,4 @@ from .layout.ventana_theory import Theory
 from .layout.ventana_tutorial import Tutorial
 from .widgets.boton import boton_menu
 from controller import (mostrar_radial,mostrar_imag_esfericos,mostrar_real_esfericos,
-                                mostrar_cartesian,mostrar_wf_2d,mostrar_wf_3d)
+                                 mostrar_cartesian,mostrar_wf_2d,mostrar_wf_3d)

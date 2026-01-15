@@ -27,7 +27,7 @@ class MainMenu(Ventana):
         pixmap = QPixmap(png_path)
         label_logo.setPixmap(pixmap)
         label_logo.setAlignment(Qt.AlignCenter)
-        label_logo.setFixedSize(600, 300)  # Opcional: fija el tamaño del QLabel
+        label_logo.setFixedSize(600, 300)
         layout.addWidget(label_logo, alignment=Qt.AlignCenter)
         
         #botones
@@ -64,3 +64,5 @@ def GUI():
     menu = MainMenu()
     menu.show()
     app.exec_()
+
+

@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QLineEdit
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtCore import Qt
 
-def number(value=None, on_change=None):
+def number(value=None):
     style = """
     QLineEdit {
         background-color: #02023A;
@@ -25,6 +25,5 @@ def number(value=None, on_change=None):
     entry.setAlignment(Qt.AlignCenter)
     # Solo números si quieres (puedes quitar esto si necesitas texto)
     entry.setValidator(QIntValidator())
-    if on_change:
-        entry.textChanged.connect(on_change)
+
     return entry

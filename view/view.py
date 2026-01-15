@@ -28,6 +28,7 @@
 #     root.geometry("500x430")
 #     root.configure(bg="white")
 #     return root
+
 # def init_entries(root):
 #     """
 #     Se inicializa los campos para ingresar los numeros n,l,m.
@@ -40,6 +41,7 @@
 #     entry_l.grid(row=0, column=1, padx=10, pady=10)
 #     entry_m.grid(row=0, column=2, padx=10, pady=10)
 #     return entry_n,entry_l,entry_m
+
 # def crear_menu_colores(root):
 #     """
 #     Crea las etiquetas que indican donde se deben de colocar los n,l,m.
