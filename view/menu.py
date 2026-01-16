@@ -1,5 +1,5 @@
 import sys
-from .layout import Theory
+from .layout import orbitales
 from .layout import Start
 from .layout import Tutorial
 # from layout.ventana_start import Start
@@ -31,14 +31,12 @@ class MainMenu(Ventana):
         layout.addWidget(label_logo, alignment=Qt.AlignCenter)
         
         #botones
-        btn_theory = boton_menu("Theory", self.on_theory_clicked)
-        btn_start = boton_menu("Start", self.on_start_clicked)
-        btn_tutorial = boton_menu("Tutorial", self.on_tutorial_clicked)
+        btn_orbitales = boton_menu("Orbitales Atómicos", self.on_orbitales_clicked, 20,400,100)
+        btn_start = boton_menu("Hibridaciones Atómicas", self.on_start_clicked, 20,400,100)
 
         h_layout = QHBoxLayout()
-        h_layout.addWidget(btn_theory)
+        h_layout.addWidget(btn_orbitales)
         h_layout.addWidget(btn_start)
-        h_layout.addWidget(btn_tutorial)
         layout.addLayout(h_layout)
         layout.addStretch() #espacio
 
@@ -47,9 +45,9 @@ class MainMenu(Ventana):
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
 
-    def on_theory_clicked(self):
-        self.ventana_theory = Theory()
-        self.ventana_theory.show()
+    def on_orbitales_clicked(self):
+        self.ventana_orbitales = orbitales()
+        self.ventana_orbitales.show()
 
     def on_start_clicked(self):
         self.ventana_start = Start()

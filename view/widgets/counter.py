@@ -15,26 +15,26 @@ class CounterWidget(QWidget):
         # Layout principal (vertical para Título y Controles)
         self.main_layout = QVBoxLayout(self)
         self.main_layout.setContentsMargins(0, 0, 0, 0)
-        self.main_layout.setSpacing(5)
+        self.main_layout.setSpacing(10)
         self.title_label = QLabel(title)
         self.title_label.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
         self.main_layout.addWidget(self.title_label)
 
         self.controls_layout = QHBoxLayout()
-        self.controls_layout.setSpacing(10)
+        self.controls_layout.setSpacing(20)
 
         self.btn_minus = QPushButton("-")
-        self.btn_minus.setFixedSize(30, 30)
+        self.btn_minus.setFixedSize(25, 25)
         self.btn_minus.setCursor(Qt.PointingHandCursor)
         
         # Etiqueta del Valor
         self.value_label = QLabel(str(self.current_val))
         self.value_label.setAlignment(Qt.AlignCenter)
-        self.value_label.setMinimumWidth(40)
+        self.value_label.setMinimumWidth(30)
         
         # Botón Más
         self.btn_plus = QPushButton("+")
-        self.btn_plus.setFixedSize(30, 30)
+        self.btn_plus.setFixedSize(25, 25)
         self.btn_plus.setCursor(Qt.PointingHandCursor)
 
         self.controls_layout.addWidget(self.btn_minus)
@@ -51,6 +51,7 @@ class CounterWidget(QWidget):
                 color: #FFFFFF;
                 font-family: 'Segoe UI', sans-serif;
                 font-size: 16px;
+                font-weight: bold;
             }
             QPushButton {
                 background-color: #02023A;
