@@ -1,13 +1,14 @@
 from view.widgets.boton import boton_menu
-from view.widgets.number import number
+# from view.widgets.number import number  # Ya no se usa esto
 from view.widgets.combo import combobox
+from view.widgets.counter import CounterWidget
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 from .ventana import Ventana
 import os
-from controller import (mostrar_radial,mostrar_imag_esfericos,mostrar_real_esfericos,
-                                 mostrar_cartesian,mostrar_wf_2d,mostrar_wf_3d)
+from controller import (mostrar_radial, mostrar_imag_esfericos, mostrar_real_esfericos,
+                        mostrar_cartesian, mostrar_wf_2d, mostrar_wf_3d)
 
 
 class Start(Ventana):
@@ -46,51 +47,28 @@ class Start(Ventana):
         self.layout.addWidget(label_logo)
 
         # Label de instrucciones
-        label_numbers = QLabel("Enter quantum numbers:")
+        label_numbers = QLabel("Escribe los números cuánticos:")
         label_numbers.setStyleSheet(parametros2)
         self.layout.addWidget(label_numbers, alignment=Qt.AlignHCenter)
 
-        # Layout horizontal para n, l, m
-        campo_n = QHBoxLayout()
-        label_n = QLabel("n:")
-        label_n.setStyleSheet(parametros2)
-        label_n.setFixedHeight(20)
-        entry_n = number(2)
-        campo_n.addWidget(label_n)
-        campo_n.addWidget(entry_n)
+        self.cnt_n = CounterWidget(title="Principal (n)", min_val=1, max_val=7, initial_val=3)
+        self.cnt_l = CounterWidget(title="Azimuthal (l)", min_val=0, max_val=2, initial_val=0)
+        self.cnt_m = CounterWidget(title="Magnetico (m)", min_val=0, max_val=0, initial_val=0)
 
-        campo_l = QHBoxLayout()
-        label_l = QLabel("l:")
-        label_l.setStyleSheet(parametros2)
-        label_l.setFixedHeight(20)
-        entry_l = number(0)
-        campo_l.addWidget(label_l)
-        campo_l.addWidget(entry_l)
-
-        campo_m = QHBoxLayout()
-        label_m = QLabel("m:")
-        label_m.setStyleSheet(parametros2)
-        label_m.setFixedHeight(20)
-        entry_m = number(0)
-        campo_m.addWidget(label_m)
-        campo_m.addWidget(entry_m)
+        self.cnt_n.valueChanged.connect(self.update_l_limits)
+        
+        self.cnt_l.valueChanged.connect(self.update_m_limits)
 
         fila_nlm = QHBoxLayout()
-        fila_nlm.addLayout(campo_n)
-        fila_nlm.addSpacing(1)
-        fila_nlm.addLayout(campo_l)
-        fila_nlm.addSpacing(1)
-        fila_nlm.addLayout(campo_m)
+        fila_nlm.addWidget(self.cnt_n)
+        fila_nlm.addWidget(self.cnt_l)
+        fila_nlm.addWidget(self.cnt_m)
+        
         self.layout.addLayout(fila_nlm)
 
-        # Crear callbacks y widgets
-        callbacks = self.crear_callbacks(entry_n, entry_l, entry_m)
+        callbacks = self.crear_callbacks(self.cnt_n, self.cnt_l, self.cnt_m)
         self.anadir_widgets(self.layout, callbacks)
 
-        # Label informativo
-        label_info = QLabel("Las graficas se abriran en el navegador")
-        label_info.setStyleSheet("color: #888888; font-size: 12px;")
-        self.layout.addWidget(label_info, alignment=Qt.AlignCenter)
 
     def anadir_widgets(self, layout, callbacks):
         """Crea los botones y combobox para graficar."""
@@ -109,19 +87,17 @@ class Start(Ventana):
             elif index == 1:
                 callbacks['on_imag']()
 
-        # Botón Radial
-        boton_radial = boton_menu("Radial Function", callbacks['on_radial'], 16, 150, 35, 10, 10)
+        boton_radial = boton_menu("Función Radial", callbacks['on_radial'], 16, 150, 60, 10, 10)
         layout.addWidget(boton_radial, alignment=Qt.AlignTop)
 
         # Grupo 1: Spherical Harmonics
         grupo1 = QVBoxLayout()
-        label1 = QLabel("Spherical Harmonics:")
+        label1 = QLabel("Armónicos esféricos:")
         label1.setStyleSheet(parametros)
-        combo1 = combobox(["Real", "Imaginary"], on_change=on_combo1_changed)
+        combo1 = combobox(["Real", "Imaginarios"], on_change=on_combo1_changed)
         grupo1.addWidget(label1, alignment=Qt.AlignHCenter)
         grupo1.addWidget(combo1)
 
-        # Combo 2: Probability Function
         def on_combo2_changed(index):
             print(f"\n--- Evento combo2 cambiado a indice {index} ---")
             try:
@@ -147,11 +123,9 @@ class Start(Ventana):
 
         # Combo 3: Hybridization
         def on_combo3_changed(index):
-            # Importar la clase plot desde class_electron
             from lib.class_electron import plot
             p = plot()
 
-            # Definir las funciones de hibridacion de la clase plot
             opciones = [
                 p.plot_sp,
                 p.plot_sp2,
@@ -185,35 +159,36 @@ class Start(Ventana):
         fila.addLayout(fila_combos)
         layout.addLayout(fila)
 
-    def crear_callbacks(self, entry_n, entry_l, entry_m):
-        """Crea las funciones callback usando las funciones del controller."""
+    def update_l_limits(self, new_n):
+        """Actualiza el rango de l basado en el valor de n (0 a n-1)"""
+        max_l = new_n - 1
+        self.cnt_l.set_range(0, max_l)
+        # Si l supera el nuevo máximo, se resetea automáticamente en set_range, 
+        # pero forzamos un update de m por si acaso.
+        self.update_m_limits(self.cnt_l.get_value())
+
+    def update_m_limits(self, new_l):
+        """Actualiza el rango de m basado en el valor de l (-l a +l)"""
+        self.cnt_m.set_range(-new_l, new_l)
+
+    def crear_callbacks(self, cnt_n, cnt_l, cnt_m):
+        """Recibe los CounterWidget en lugar de los entry antiguos"""
         
         def on_radial():
-            print("Callback: on_radial")
-            values = self.obtener_valores_desde_entry(entry_n, entry_l, entry_m)
-            print(f"Valores ingresados: n={values[0]}, l={values[1]}, m={values[2]}")
-            mostrar_radial(values[0], values[1], values[2])
+            # Usar get_value() en lugar de .text()
+            mostrar_radial(cnt_n.get_value(), cnt_l.get_value(), cnt_m.get_value())
 
         def on_real_esfericos():
-            values = self.obtener_valores_desde_entry(entry_n, entry_l, entry_m)
-            mostrar_real_esfericos(values[0], values[1], values[2])
+            mostrar_real_esfericos(cnt_n.get_value(), cnt_l.get_value(), cnt_m.get_value())
 
         def on_imag():
-            values = self.obtener_valores_desde_entry(entry_n, entry_l, entry_m)
-            mostrar_imag_esfericos(values[0], values[1], values[2])
+            mostrar_imag_esfericos(cnt_n.get_value(), cnt_l.get_value(), cnt_m.get_value())
 
         def on_wf_2D():
-            print("\n--- Ejecutando on_wf_2D ---")
-            try:
-                values = self.obtener_valores_desde_entry(entry_n, entry_l, entry_m)
-                print(f"DEBUG: Valores obtenidos - n:{values[0]}, l:{values[1]}, m:{values[2]}")
-                mostrar_wf_2d(values[0], values[1], values[2])
-            except Exception as e:
-                print(f"ERROR en on_wf_2D: {str(e)}")
+            mostrar_wf_2d(cnt_n.get_value(), cnt_l.get_value(), cnt_m.get_value())
 
         def on_wf_3D():
-            values = self.obtener_valores_desde_entry(entry_n, entry_l, entry_m)
-            mostrar_wf_3d(values[0], values[1], values[2])
+            mostrar_wf_3d(cnt_n.get_value(), cnt_l.get_value(), cnt_m.get_value())
 
         def on_hibridaciones(plot_func):
             mostrar_cartesian(plot_func)
@@ -226,25 +201,3 @@ class Start(Ventana):
             'on_wf_3D': on_wf_3D,
             'on_hibridaciones': on_hibridaciones
         }
-
-    def obtener_valores_desde_entry(self, entry_n=None, entry_l=None, entry_m=None):
-        """
-        Obtiene valores de los campos de entrada.
-        Devuelve los valores en formato de tupla.
-        """
-        valores = []
-        for i, entry in enumerate((entry_n, entry_l, entry_m), start=1):
-            if entry is not None:
-                try:
-                    texto = entry.text().strip()
-                    if texto == "":
-                        valores.append(None)
-                    else:
-                        valores.append(int(texto))
-                except Exception as ex:
-                    print(f"Error al procesar el campo {i}:", ex)
-                    valores.append(None)
-            else:
-                valores.append(None)
-
-        return tuple(valores)

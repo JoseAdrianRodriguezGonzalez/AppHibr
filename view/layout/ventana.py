@@ -18,7 +18,6 @@ class Ventana(QMainWindow):
         # Título de la ventana
         self.setWindowTitle("QuPlots - Quantum Plots")
 
-        # Fondo oscuro para todas las ventanas
         self.setStyleSheet("""
             QMainWindow {
                 background-color: #010122;

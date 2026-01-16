@@ -1,7 +1,9 @@
 import numpy as np
+import matplotlib
+matplotlib.use('Qt5Agg')
 import  matplotlib.pyplot as plt
 import plotly.graph_objects as go
-from scipy.special import sph_harm_y as sph_harm, genlaguerre, factorial
+from scipy.special import sph_harm, genlaguerre, factorial
 
 
 class electron:
