@@ -16,7 +16,7 @@ class Ventana(QMainWindow):
     def setup_window(self):
         """Configuración común para todas las ventanas"""
         # Título de la ventana
-        self.setWindowTitle("QuPlots - Quantum Plots")
+        self.setWindowTitle("QuPlots")
 
         self.setStyleSheet("""
             QMainWindow {
@@ -28,10 +28,8 @@ class Ventana(QMainWindow):
             }
         """)
 
-        # Tamaño inicial
         self.setMinimumSize(600, 500)
 
-        # Permitir maximizar y minimizar
         self.setWindowFlags(Qt.Window)
 
     def center_window(self):

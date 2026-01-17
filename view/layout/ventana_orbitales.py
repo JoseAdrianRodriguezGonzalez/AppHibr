@@ -6,6 +6,8 @@ from PyQt5.QtCore import Qt
 from .ventana import Ventana
 import os
 from controller import (mostrar_radial, mostrar_imag_esfericos, mostrar_real_esfericos, mostrar_wf_2d, mostrar_wf_3d)
+from view.widgets.combo import combobox
+
 class orbitales(Ventana):
 
     def __init__(self):
@@ -19,6 +21,8 @@ class orbitales(Ventana):
         self.layout = QVBoxLayout()
         self.main_widget.setLayout(self.layout)
 
+        self.current_color_scale = "Viridis"
+        
         # Inicializar UI
         self.init_ui()
     def init_ui(self):
@@ -54,7 +58,7 @@ class orbitales(Ventana):
         label_plot = QLabel("Graficar :")
         label_plot.setStyleSheet("color: white;font-family: 'Inter';font-weight: bold;font-size: 20px;")
         layout.addWidget(label_plot, alignment=Qt.AlignLeft)
-
+        
         label_radial = QLabel("Función Radial :")
         label_radial.setStyleSheet(parametros)
         layout.addWidget(label_radial, alignment=Qt.AlignHCenter)
@@ -116,7 +120,6 @@ class orbitales(Ventana):
 
         def on_wf_3D():
             mostrar_wf_3d(cnt_n.get_value(), cnt_l.get_value(), cnt_m.get_value())
-
 
         return {
             'on_radial': on_radial,

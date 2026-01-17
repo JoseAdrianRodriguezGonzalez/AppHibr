@@ -1,14 +1,10 @@
 import sys
 from .layout import orbitales
 from .layout import Start
-from .layout import Tutorial
-# from layout.ventana_start import Start
-# from layout.ventana_tutorial import Tutorial
 from .widgets.boton import boton_menu
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QApplication, QWidget, QHBoxLayout
 from .layout.ventana import Ventana
 from PyQt5.QtGui import QPixmap, QPainter
-from PyQt5.QtSvg import QSvgRenderer
 from PyQt5.QtCore import Qt, QSize
 import os
 
@@ -53,9 +49,7 @@ class MainMenu(Ventana):
         self.ventana_start = Start()
         self.ventana_start.show()
 
-    def on_tutorial_clicked(self):
-        self.ventana_tutorial = Tutorial()
-        self.ventana_tutorial.show()
+
 
 def GUI():
     app = QApplication([])

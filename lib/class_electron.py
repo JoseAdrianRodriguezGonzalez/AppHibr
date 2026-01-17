@@ -206,7 +206,7 @@ class plot:
                                      y=package[0]*np.sin(package[1]) * np.sin(package[2]),
                                      z=package[0]*np.cos(package[1]),
                                      surfacecolor=package[3],
-                                     colorscale='balance')])
+                                     colorscale="RdYlBu_r")])
 
     # Show the plot
             fig.update_layout(title=fr'$Y_{package[4], package[5]}$', autosize=False,
@@ -224,7 +224,7 @@ class plot:
                                      y=R*np.sin(phi) * np.sin(theta),
                                      z=R*np.cos(phi),
                                      surfacecolor=fcolors,
-                                     colorscale='balance')])
+                                     colorscale=colorscale)])
 
     # Show the plot
             fig.update_layout(title=fr'$Y_{l, m}$', autosize=False,
@@ -257,18 +257,18 @@ class plot:
             ax.set_xlim(-max_r, max_r)
             ax.set_ylim(-max_r, max_r)
             plt.show()
-    def plot_wf_3d(self,psi):
+    def plot_wf_3d(self,psi,colorscale='RdYlBu_r',opacity=0.5):
         x,y,z = electron.Cartesian_definition(electron)
         fig= go.Figure(data=go.Isosurface(
         x=x.flatten(),
         y=y.flatten(),
         z=z.flatten(),
         value=abs(psi).flatten(),
-        colorscale='RdBu',
+        colorscale=colorscale,
         isomin=-.75*abs(psi).min(),
         isomax=.75*abs(psi).max(),
         surface_count=6,
-        opacity=0.5,
+        opacity=opacity,
         caps=dict(x_show=False,y_show=False,z_show=False)
         ))
         fig.update_layout(paper_bgcolor="black",scene=dict(
@@ -278,7 +278,7 @@ class plot:
                         font=dict(
                         color="white"))
         fig.show()
-    def plot_sp(self,packageCartesian=None,x=None,y=None,z=None):
+    def plot_sp(self,packageCartesian=None,x=None,y=None,z=None,colorscale='RdYlBu_r',opacity=0.6):
         if packageCartesian:
             PSI1, PSI2 = hibrydization.sp(hibrydization)
             # Grafico
@@ -288,11 +288,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSI1).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI1).min(),
                 isomax=.75 * abs(PSI1).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso2 = go.Isosurface(
@@ -300,11 +300,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSI2).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI2).min(),
                 isomax=.75 * abs(PSI2).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             fig.update_layout(
@@ -328,11 +328,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSI1).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI1).min(),
                 isomax=.75 * abs(PSI1).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso2 = go.Isosurface(
@@ -340,11 +340,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSI2).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI2).min(),
                 isomax=.75 * abs(PSI2).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             fig.update_layout(
@@ -359,7 +359,7 @@ class plot:
             fig.add_trace(Iso1)
             fig.add_trace(Iso2)
             fig.show()
-    def plot_sp2(self,packageCartesian=None,x=None,y=None,z=None):
+    def plot_sp2(self,packageCartesian=None,x=None,y=None,z=None, colorscale='RdYlBu_r',opacity=0.6):
         PSI2_1, PSI2_2, PSI2_3 = hibrydization.sp2(hibrydization)
         # Grafico
         if packageCartesian:
@@ -369,11 +369,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSI2_1).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI2_1).min(),
                 isomax=.75 * abs(PSI2_1).max(),
                 surface_count=4,
-                opacity=0.3,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso2 = go.Isosurface(
@@ -381,11 +381,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSI2_2).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI2_2).min(),
                 isomax=.75 * abs(PSI2_2).max(),
                 surface_count=4,
-                opacity=0.3,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso3 = go.Isosurface(
@@ -393,11 +393,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSI2_3).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI2_3).min(),
                 isomax=.75 * abs(PSI2_3).max(),
                 surface_count=4,
-                opacity=0.3,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             fig.update_layout(
@@ -424,11 +424,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSI2_1).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI2_1).min(),
                 isomax=.75 * abs(PSI2_1).max(),
                 surface_count=4,
-                opacity=0.3,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso2 = go.Isosurface(
@@ -436,11 +436,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSI2_2).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI2_2).min(),
                 isomax=.75 * abs(PSI2_2).max(),
                 surface_count=4,
-                opacity=0.3,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso3 = go.Isosurface(
@@ -448,11 +448,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSI2_3).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI2_3).min(),
                 isomax=.75 * abs(PSI2_3).max(),
                 surface_count=4,
-                opacity=0.3,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             fig.update_layout(
@@ -472,7 +472,7 @@ class plot:
             fig.add_trace(Iso2)
             fig.add_trace(Iso3)
             fig.show()
-    def plot_sp3(self,packageCartesian=None,x=None,y=None,z=None):
+    def plot_sp3(self,packageCartesian=None,x=None,y=None,z=None,colorscale='RdYlBu_r',opacity=0.6):
         PSI3_1, PSI3_2, PSI3_3, PSI3_4 = hibrydization.sp3(hibrydization)
         if packageCartesian:
             # Grafico
@@ -482,11 +482,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSI3_1).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI3_1).min(),
                 isomax=.75 * abs(PSI3_1).max(),
                 surface_count=6,
-                opacity=0.6,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso2 = go.Isosurface(
@@ -506,11 +506,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSI3_3).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI3_3).min(),
                 isomax=.75 * abs(PSI3_3).max(),
                 surface_count=6,
-                opacity=0.3,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso4 = go.Isosurface(
@@ -518,11 +518,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSI3_4).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI3_4).min(),
                 isomax=.75 * abs(PSI3_4).max(),
                 surface_count=6,
-                opacity=0.3,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             fig.update_layout(
@@ -552,11 +552,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSI3_1).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI3_1).min(),
                 isomax=.75 * abs(PSI3_1).max(),
                 surface_count=6,
-                opacity=0.6,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso2 = go.Isosurface(
@@ -564,11 +564,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSI3_2).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI3_2).min(),
                 isomax=.75 * abs(PSI3_2).max(),
                 surface_count=6,
-                opacity=0.3,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso3 = go.Isosurface(
@@ -576,11 +576,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSI3_3).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI3_3).min(),
                 isomax=.75 * abs(PSI3_3).max(),
                 surface_count=6,
-                opacity=0.3,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso4 = go.Isosurface(
@@ -588,11 +588,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSI3_4).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSI3_4).min(),
                 isomax=.75 * abs(PSI3_4).max(),
                 surface_count=6,
-                opacity=0.3,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             fig.update_layout(
@@ -613,7 +613,7 @@ class plot:
             fig.add_trace(Iso3)
             fig.add_trace(Iso4)
             fig.show()
-    def plot_sp2d(self,packageCartesian=None,x=None,y=None,z=None):
+    def plot_sp2d(self,packageCartesian=None,x=None,y=None,z=None,colorscale='RdYlBu_r' ,opacity=0.5):
         PSI2D_1,PSI2D_2,PSI2D_3,PSI2D_4 = hibrydization.sp2d(hibrydization)
         if packageCartesian:
             fig = go.Figure()
@@ -622,11 +622,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSI2D_1).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75*abs(PSI2D_1).min(),
                 isomax=.75*abs(PSI2D_1).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False,y_show=False,z_show=False)
             )
             Iso2= go.Isosurface(
@@ -634,11 +634,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSI2D_2).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75*abs(PSI2D_2).min(),
                 isomax=.75*abs(PSI2D_2).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False,y_show=False,z_show=False)
             )
             Iso3= go.Isosurface(
@@ -646,11 +646,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSI2D_3).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75*abs(PSI2D_3).min(),
                 isomax=.75*abs(PSI2D_3).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False,y_show=False,z_show=False)
             )
             Iso4= go.Isosurface(
@@ -658,11 +658,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSI2D_4).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75*abs(PSI2D_4).min(),
                 isomax=.75*abs(PSI2D_4).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False,y_show=False,z_show=False)
             )
             fig.update_layout(title=fr'$sp^2d: Squere Planar,$',template = 'plotly_dark',autosize=False,
@@ -684,11 +684,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSI2D_1).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75*abs(PSI2D_1).min(),
                 isomax=.75*abs(PSI2D_1).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False,y_show=False,z_show=False)
             )
             Iso2= go.Isosurface(
@@ -696,11 +696,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSI2D_2).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75*abs(PSI2D_2).min(),
                 isomax=.75*abs(PSI2D_2).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False,y_show=False,z_show=False)
             )
             Iso3= go.Isosurface(
@@ -708,11 +708,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSI2D_3).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75*abs(PSI2D_3).min(),
                 isomax=.75*abs(PSI2D_3).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False,y_show=False,z_show=False)
             )
             Iso4= go.Isosurface(
@@ -720,11 +720,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSI2D_4).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75*abs(PSI2D_4).min(),
                 isomax=.75*abs(PSI2D_4).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False,y_show=False,z_show=False)
             )
             fig.update_layout(title=fr'$sp^2d: Squere Planar,$',template = 'plotly_dark',autosize=False,
@@ -738,7 +738,7 @@ class plot:
             fig.add_trace(Iso3)
             fig.add_trace(Iso4)
             fig.show()
-    def plot_sp3d(self,packageCartesian=None,x=None,y=None,z=None): 
+    def plot_sp3d(self,packageCartesian=None,x=None,y=None,z=None,colorscale='RdYlBu_r',opacity=0.5): 
         PSIP3D_1, PSIP3D_2, PSIP3D_3, PSIP3D_4, PSIP3D_5 = hibrydization.sp3d(hibrydization)
         if packageCartesian:
             fig = go.Figure()
@@ -747,11 +747,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSIP3D_1).flatten(),
-                colorscale='Portland',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSIP3D_1).min(),
                 isomax=.75 * abs(PSIP3D_1).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso2 = go.Isosurface(
@@ -759,11 +759,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSIP3D_2).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSIP3D_2).min(),
                 isomax=.75 * abs(PSIP3D_2).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso3 = go.Isosurface(
@@ -771,11 +771,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSIP3D_3).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSIP3D_3).min(),
                 isomax=.75 * abs(PSIP3D_3).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso4 = go.Isosurface(
@@ -783,11 +783,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSIP3D_4).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSIP3D_4).min(),
                 isomax=.75 * abs(PSIP3D_4).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso5 = go.Isosurface(
@@ -795,11 +795,11 @@ class plot:
                 y=packageCartesian[1].flatten(),
                 z=packageCartesian[2].flatten(),
                 value=abs(PSIP3D_5).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSIP3D_5).min(),
                 isomax=.75 * abs(PSIP3D_5).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             fig.update_layout(
@@ -829,11 +829,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSIP3D_1).flatten(),
-                colorscale='Portland',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSIP3D_1).min(),
                 isomax=.75 * abs(PSIP3D_1).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso2 = go.Isosurface(
@@ -841,11 +841,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSIP3D_2).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSIP3D_2).min(),
                 isomax=.75 * abs(PSIP3D_2).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso3 = go.Isosurface(
@@ -853,11 +853,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSIP3D_3).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSIP3D_3).min(),
                 isomax=.75 * abs(PSIP3D_3).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso4 = go.Isosurface(
@@ -865,11 +865,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSIP3D_4).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSIP3D_4).min(),
                 isomax=.75 * abs(PSIP3D_4).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             Iso5 = go.Isosurface(
@@ -877,11 +877,11 @@ class plot:
                 y=y.flatten(),
                 z=z.flatten(),
                 value=abs(PSIP3D_5).flatten(),
-                colorscale='RdYlBu_r',
+                colorscale=colorscale,
                 isomin=-.75 * abs(PSIP3D_5).min(),
                 isomax=.75 * abs(PSIP3D_5).max(),
                 surface_count=6,
-                opacity=0.5,
+                opacity=opacity,
                 caps=dict(x_show=False, y_show=False, z_show=False)
             )
             fig.update_layout(
@@ -903,7 +903,7 @@ class plot:
             fig.add_trace(Iso4)
             fig.add_trace(Iso5)
             fig.show()
-    def plot_sp3d2(self,packageCartesian=None,x=None,y=None,z=None):
+    def plot_sp3d2(self,packageCartesian=None,x=None,y=None,z=None,colorscale='RdYlBu_r',opacity=0.5):
       PSIP3D2_1,PSIP3D2_2,PSIP3D2_3,PSIP3D2_4,PSIP3D2_5,PSIP3D2_6 = hibrydization.sp3d2(hibrydization)
       if packageCartesian:
         fig = go.Figure()
@@ -912,11 +912,11 @@ class plot:
             y=packageCartesian[1].flatten(),
             z=packageCartesian[2].flatten(),
             value=abs(PSIP3D2_1).flatten(),
-            colorscale='RdYlBu_r',
+            colorscale=colorscale,
             isomin=-.75*abs(PSIP3D2_1).min(),
             isomax=.75*abs(PSIP3D2_1).max(),
             surface_count=6,
-            opacity=0.5,
+            opacity=opacity,
             caps=dict(x_show=False,y_show=False,z_show=False)
         )
         Iso2= go.Isosurface(
@@ -924,11 +924,11 @@ class plot:
             y=packageCartesian[1].flatten(),
             z=packageCartesian[2].flatten(),
             value=abs(PSIP3D2_2).flatten(),
-            colorscale='RdYlBu_r',
+            colorscale=colorscale,
             isomin=-.75*abs(PSIP3D2_2).min(),
             isomax=.75*abs(PSIP3D2_2).max(),
             surface_count=6,
-            opacity=0.5,
+            opacity=opacity,
             caps=dict(x_show=False,y_show=False,z_show=False)
         )
         Iso3= go.Isosurface(
@@ -936,11 +936,11 @@ class plot:
             y=packageCartesian[1].flatten(),
             z=packageCartesian[2].flatten(),
             value=abs(PSIP3D2_3).flatten(),
-            colorscale='RdYlBu_r',
+            colorscale=colorscale,
             isomin=-.75*abs(PSIP3D2_3).min(),
             isomax=.75*abs(PSIP3D2_3).max(),
             surface_count=6,
-            opacity=0.5,
+            opacity=opacity,
             caps=dict(x_show=False,y_show=False,z_show=False)
         )
         Iso4= go.Isosurface(
@@ -948,11 +948,11 @@ class plot:
             y=packageCartesian[1].flatten(),
             z=packageCartesian[2].flatten(),
             value=abs(PSIP3D2_4).flatten(),
-            colorscale='RdYlBu_r',
+            colorscale=colorscale,
             isomin=-.75*abs(PSIP3D2_4).min(),
             isomax=.75*abs(PSIP3D2_4).max(),
             surface_count=6,
-            opacity=0.5,
+            opacity=opacity,
             caps=dict(x_show=False,y_show=False,z_show=False)
         )
         Iso5= go.Isosurface(
@@ -960,11 +960,11 @@ class plot:
             y=packageCartesian[1].flatten(),
             z=packageCartesian[2].flatten(),
             value=abs(PSIP3D2_5).flatten(),
-            colorscale='RdYlBu_r',
+            colorscale=colorscale,
             isomin=-.75*abs(PSIP3D2_5).min(),
             isomax=.75*abs(PSIP3D2_5).max(),
             surface_count=6,
-            opacity=0.5,
+            opacity=opacity,
             caps=dict(x_show=False,y_show=False,z_show=False)
         )
         Iso6= go.Isosurface(
@@ -972,11 +972,11 @@ class plot:
             y=packageCartesian[1].flatten(),
             z=packageCartesian[2].flatten(),
             value=abs(PSIP3D2_6).flatten(),
-            colorscale='RdYlBu_r',
+            colorscale=colorscale,
             isomin=-.75*abs(PSIP3D2_6).min(),
             isomax=.75*abs(PSIP3D2_6).max(),
             surface_count=6,
-            opacity=0.5,
+            opacity=opacity,
             caps=dict(x_show=False,y_show=False,z_show=False)
         )
         fig.update_layout(title=fr'$sp^3d^2: Octahedral$',template = 'plotly_dark',autosize=False,
@@ -1000,11 +1000,11 @@ class plot:
             y=y.flatten(),
             z=z.flatten(),
             value=abs(PSIP3D2_1).flatten(),
-            colorscale='RdYlBu_r',
+            colorscale=colorscale,
             isomin=-.75*abs(PSIP3D2_1).min(),
             isomax=.75*abs(PSIP3D2_1).max(),
             surface_count=6,
-            opacity=0.5,
+            opacity=opacity,
             caps=dict(x_show=False,y_show=False,z_show=False)
         )
         Iso2= go.Isosurface(
@@ -1012,11 +1012,11 @@ class plot:
             y=y.flatten(),
             z=z.flatten(),
             value=abs(PSIP3D2_2).flatten(),
-            colorscale='RdYlBu_r',
+            colorscale=colorscale,
             isomin=-.75*abs(PSIP3D2_2).min(),
             isomax=.75*abs(PSIP3D2_2).max(),
             surface_count=6,
-            opacity=0.5,
+            opacity=opacity,
             caps=dict(x_show=False,y_show=False,z_show=False)
         )
         Iso3= go.Isosurface(
@@ -1024,11 +1024,11 @@ class plot:
             y=y.flatten(),
             z=z.flatten(),
             value=abs(PSIP3D2_3).flatten(),
-            colorscale='RdYlBu_r',
+            colorscale=colorscale,
             isomin=-.75*abs(PSIP3D2_3).min(),
             isomax=.75*abs(PSIP3D2_3).max(),
             surface_count=6,
-            opacity=0.5,
+            opacity=opacity,
             caps=dict(x_show=False,y_show=False,z_show=False)
         )
         Iso4= go.Isosurface(
@@ -1036,11 +1036,11 @@ class plot:
             y=y.flatten(),
             z=z.flatten(),
             value=abs(PSIP3D2_4).flatten(),
-            colorscale='RdYlBu_r',
+            colorscale=colorscale,
             isomin=-.75*abs(PSIP3D2_4).min(),
             isomax=.75*abs(PSIP3D2_4).max(),
             surface_count=6,
-            opacity=0.5,
+            opacity=opacity,
             caps=dict(x_show=False,y_show=False,z_show=False)
         )
         Iso5= go.Isosurface(
@@ -1048,11 +1048,11 @@ class plot:
             y=y.flatten(),
             z=z.flatten(),
             value=abs(PSIP3D2_5).flatten(),
-            colorscale='RdYlBu_r',
+            colorscale=colorscale,
             isomin=-.75*abs(PSIP3D2_5).min(),
             isomax=.75*abs(PSIP3D2_5).max(),
             surface_count=6,
-            opacity=0.5,
+            opacity=opacity,
             caps=dict(x_show=False,y_show=False,z_show=False)
         )
         Iso6= go.Isosurface(
@@ -1060,11 +1060,11 @@ class plot:
             y=y.flatten(),
             z=z.flatten(),
             value=abs(PSIP3D2_6).flatten(),
-            colorscale='RdYlBu_r',
+            colorscale=colorscale,
             isomin=-.75*abs(PSIP3D2_6).min(),
             isomax=.75*abs(PSIP3D2_6).max(),
             surface_count=6,
-            opacity=0.5,
+            opacity=opacity,
             caps=dict(x_show=False,y_show=False,z_show=False)
         )
         fig.update_layout(title=fr'$sp^3d^2: Octahedral$',template = 'plotly_dark',autosize=False,

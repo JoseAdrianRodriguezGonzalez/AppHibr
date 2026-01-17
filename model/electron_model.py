@@ -71,16 +71,38 @@ def calcular_wf_3d(n,l,m):
         guardar_datos(wf_3d_file, wf_3d)
     return wf_3d
 
-def mostrar_cartesian(func):
+
+import os
+
+def mostrar_cartesian(func, color_scale, opacity):
     """
-    Le pasa como parametro una funcion, busca si existe los datos,buscamos el archivo  y
-    si no existen, se genera una region x,y,z; se guarda en un formato pkl 
-    y se le pasa a la funcion
+    Controla la graficación y usa un ID basado en los parámetros.
     """
-    archivo = "data/cartesian.pkl"
-    e=electron()
-    datos = cargar_datos(archivo)
+    id_unico = f"{func.__name__}_{color_scale}_{opacity}"
+    
+    nombre_carpeta = os.path.join("data", f"outputs_{id_unico}")
+    
+    if not os.path.exists(nombre_carpeta):
+        os.makedirs(nombre_carpeta)
+
+    archivo_datos = "data/cartesian.pkl"
+    e = electron()
+    datos = cargar_datos(archivo_datos)
+    
     if datos is None:
         datos = e.Cartesian_definition()
-        guardar_datos(archivo, datos)
-    func(datos)
+        guardar_datos(archivo_datos, datos)
+
+    print(f"--- INFO GRÁFICA ---")
+    print(f"Función: {func.__name__}")
+    print(f"Colorescale: {color_scale}")
+    print(f"Opacidad: {opacity}")
+    print(f"Guardando en carpeta: {nombre_carpeta}")
+
+    carpeta_original = os.getcwd()
+    try:
+        os.chdir(nombre_carpeta)
+        func(datos, colorscale=color_scale, opacity=opacity)
+        
+    finally:
+        os.chdir(carpeta_original)
