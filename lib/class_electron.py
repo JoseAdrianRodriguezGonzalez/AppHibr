@@ -224,7 +224,7 @@ class plot:
                                      y=R*np.sin(phi) * np.sin(theta),
                                      z=R*np.cos(phi),
                                      surfacecolor=fcolors,
-                                     colorscale=colorscale)])
+                                     colorscale="RdYlBu_r")])
 
     # Show the plot
             fig.update_layout(title=fr'$Y_{l, m}$', autosize=False,

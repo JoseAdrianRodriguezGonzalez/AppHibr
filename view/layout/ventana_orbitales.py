@@ -17,13 +17,11 @@ class orbitales(Ventana):
         self.main_widget = QWidget()
         self.setCentralWidget(self.main_widget)
 
-        # Crea el layout principal
         self.layout = QVBoxLayout()
         self.main_widget.setLayout(self.layout)
 
         self.current_color_scale = "Viridis"
-        
-        # Inicializar UI
+
         self.init_ui()
     def init_ui(self):
         parametros2 = "color: white;font-family: 'Inter';font-weight: bold;font-size: 20px;"
