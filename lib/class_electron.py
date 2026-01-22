@@ -168,7 +168,7 @@ class plot:
                                      y=package[0]*np.sin(package[1]) * np.sin(package[2]),
                                      z=package[0]*np.cos(package[1]),
                                      surfacecolor=package[3],
-                                     colorscale='balance')])
+                                     colorscale="RdYlBu_r")])
 
     # Show the plot
             fig.update_layout(title=fr'$Y_{package[4], package[5]}$', autosize=False,
@@ -186,7 +186,7 @@ class plot:
                                      y=R*np.sin(phi) * np.sin(theta),
                                      z=R*np.cos(phi),
                                      surfacecolor=fcolors,
-                                     colorscale='balance')])
+                                     colorscale="RdYlBu_r")])
 
     # Show the plot
             fig.update_layout(title=fr'$Y_{l, m}$', autosize=False,
@@ -206,7 +206,7 @@ class plot:
                                      y=package[0]*np.sin(package[1]) * np.sin(package[2]),
                                      z=package[0]*np.cos(package[1]),
                                      surfacecolor=package[3],
-                                     colorscale="RdYlBu_r")])
+                                     colorscale="Rainbow")])
 
     # Show the plot
             fig.update_layout(title=fr'$Y_{package[4], package[5]}$', autosize=False,
@@ -224,7 +224,7 @@ class plot:
                                      y=R*np.sin(phi) * np.sin(theta),
                                      z=R*np.cos(phi),
                                      surfacecolor=fcolors,
-                                     colorscale="RdYlBu_r")])
+                                     colorscale="Rainbow")])
 
     # Show the plot
             fig.update_layout(title=fr'$Y_{l, m}$', autosize=False,
@@ -257,18 +257,18 @@ class plot:
             ax.set_xlim(-max_r, max_r)
             ax.set_ylim(-max_r, max_r)
             plt.show()
-    def plot_wf_3d(self,psi,colorscale='RdYlBu_r',opacity=0.5):
+    def plot_wf_3d(self,psi):
         x,y,z = electron.Cartesian_definition(electron)
         fig= go.Figure(data=go.Isosurface(
         x=x.flatten(),
         y=y.flatten(),
         z=z.flatten(),
         value=abs(psi).flatten(),
-        colorscale=colorscale,
+        colorscale="RdYlBu_r",
         isomin=-.75*abs(psi).min(),
         isomax=.75*abs(psi).max(),
         surface_count=6,
-        opacity=opacity,
+        opacity=0.5,
         caps=dict(x_show=False,y_show=False,z_show=False)
         ))
         fig.update_layout(paper_bgcolor="black",scene=dict(
@@ -613,7 +613,7 @@ class plot:
             fig.add_trace(Iso3)
             fig.add_trace(Iso4)
             fig.show()
-    def plot_sp2d(self,packageCartesian=None,x=None,y=None,z=None,colorscale='RdYlBu_r' ,opacity=0.5):
+    def plot_sp2d(self,packageCartesian=None,x=None,y=None,z=None,colorscale='RdYlBu_r' ,opacity=0.6):
         PSI2D_1,PSI2D_2,PSI2D_3,PSI2D_4 = hibrydization.sp2d(hibrydization)
         if packageCartesian:
             fig = go.Figure()

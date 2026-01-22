@@ -8,7 +8,7 @@ from lib.class_electron import plot
 
 class Start(Ventana):
     """
-    Ventana dedicada exclusivamente a la Hibridación.
+    Ventana dedicada a la hibridacion.
     """
 
     def __init__(self):
@@ -40,7 +40,7 @@ class Start(Ventana):
         label_plot.setAlignment(Qt.AlignHCenter)
         layout.addWidget(label_plot)
 
-        label_estilo = QLabel("Editar colores de las graficas en 3D:")
+        label_estilo = QLabel("Selecciona el estilo:")
         label_estilo.setStyleSheet("color: gray;font-family: 'Inter';font-weight: bold;font-size: 16px;")
         label_estilo.setAlignment(Qt.AlignHCenter)
         layout.addWidget(label_estilo)

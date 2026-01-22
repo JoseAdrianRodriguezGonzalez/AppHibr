@@ -3,9 +3,9 @@ from view.widgets.boton import boton_menu
 from view.widgets.counter import CounterWidget
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout
 from PyQt5.QtCore import Qt
-from .ventana import Ventana
 import os
-from controller import (mostrar_radial, mostrar_imag_esfericos, mostrar_real_esfericos, mostrar_wf_2d, mostrar_wf_3d)
+from controller import (mostrar_radial, mostrar_imag_esfericos, mostrar_real_esfericos,
+                        mostrar_wf_2d, mostrar_wf_3d)
 from view.widgets.combo import combobox
 
 class orbitales(Ventana):
@@ -13,7 +13,6 @@ class orbitales(Ventana):
     def __init__(self):
         super().__init__()
 
-        # Crea el widget central
         self.main_widget = QWidget()
         self.setCentralWidget(self.main_widget)
 
@@ -22,7 +21,10 @@ class orbitales(Ventana):
 
         self.current_color_scale = "Viridis"
 
+        self.layout.setContentsMargins(40, 30, 40, 30)
+
         self.init_ui()
+
     def init_ui(self):
         parametros2 = "color: white;font-family: 'Inter';font-weight: bold;font-size: 20px;"
 
@@ -47,13 +49,11 @@ class orbitales(Ventana):
         callbacks = self.crear_callbacks(self.cnt_n, self.cnt_l, self.cnt_m)
         self.anadir_widgets(self.layout, callbacks)
 
-
     def anadir_widgets(self, layout, callbacks):
-        """Crea botones para cada sección y los organiza horizontalmente."""
+        """Crea botones para cada seccion."""
         parametros = "color: gray;font-family: 'Inter';font-weight: bold;font-size: 16px;"
-
-        # Label Principal
-        label_plot = QLabel("Graficar :")
+        
+        label_plot = QLabel("\nGraficar:")
         label_plot.setStyleSheet("color: white;font-family: 'Inter';font-weight: bold;font-size: 20px;")
         layout.addWidget(label_plot, alignment=Qt.AlignLeft)
         
@@ -89,7 +89,6 @@ class orbitales(Ventana):
         layout.addLayout(layout_prob)
 
         layout.addStretch()
-
         
     def update_l_limits(self, new_n):
         """Actualiza el rango de l basado en el valor de n (0 a n-1)"""
@@ -102,7 +101,11 @@ class orbitales(Ventana):
         self.cnt_m.set_range(-new_l, new_l)
 
     def crear_callbacks(self, cnt_n, cnt_l, cnt_m):
-        """Recibe los CounterWidget en lugar de los entry antiguos"""
+        """
+        Crea los callbacks.
+        Los 2D ignoran el estilo.
+        Los 3D leen self.current_color_scale
+        """
         
         def on_radial():
             mostrar_radial(cnt_n.get_value(), cnt_l.get_value(), cnt_m.get_value())

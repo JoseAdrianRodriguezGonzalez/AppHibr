@@ -1,5 +1,4 @@
-
-
+from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QMainWindow, QWidget
 from PyQt5.QtCore import Qt
 
@@ -14,8 +13,7 @@ class Ventana(QMainWindow):
         self.setup_window()
 
     def setup_window(self):
-        """Configuración común para todas las ventanas"""
-        # Título de la ventana
+        """Configuracion para todas las ventanas"""
         self.setWindowTitle("QuPlots")
 
         self.setStyleSheet("""
@@ -34,7 +32,7 @@ class Ventana(QMainWindow):
 
     def center_window(self):
         """Centra la ventana en la pantalla"""
-        from PyQt5.QtWidgets import QApplication
+        
         screen = QApplication.desktop().screenGeometry()
         size = self.geometry()
         self.move(

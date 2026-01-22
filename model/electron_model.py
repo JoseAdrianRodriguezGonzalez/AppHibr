@@ -82,16 +82,14 @@ def mostrar_cartesian(func, color_scale, opacity):
     
     nombre_carpeta = os.path.join("data", f"outputs_{id_unico}")
     
-    if not os.path.exists(nombre_carpeta):
-        os.makedirs(nombre_carpeta)
-
-    archivo_datos = "data/cartesian.pkl"
+    os.makedirs(nombre_carpeta,exist_ok=True)
+    nombre_completo=os.path.join(nombre_carpeta,"cartesian.pkl")
     e = electron()
-    datos = cargar_datos(archivo_datos)
+    datos = cargar_datos(nombre_completo)
     
     if datos is None:
         datos = e.Cartesian_definition()
-        guardar_datos(archivo_datos, datos)
+        guardar_datos(nombre_completo, datos)
 
     print(f"--- INFO GRÁFICA ---")
     print(f"Función: {func.__name__}")
